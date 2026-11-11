@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title>Learn Linux Terminal & Command Line Free | Interactive CLI Quest</title>
+  <meta name="title" content="Learn Linux Terminal & Command Line Free | Interactive CLI Quest">
+  <meta name="description" content="Master Linux terminal commands, Bash scripting, CTF challenges, and cybersecurity CLI skills with 110 gamified interactive terminal lessons right in your browser. No VM required.">
+  <meta name="keywords" content="learn linux terminal, linux command line tutorial, interactive bash simulator, ctf challenges for beginners, learn linux commands, cybersecurity terminal tutorial, cat command linux, bash command line game">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="CLI Quest: Cyber Citadel">
+
+  <!-- Open Graph / Facebook / Discord -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cli-quest.com/">
+  <meta property="og:title" content="Learn Linux Terminal & Command Line | Interactive CLI Quest">
+  <meta property="og:description" content="Master Linux terminal commands, Bash scripting, and CTF challenges with 110 gamified interactive lessons. Zero setup required.">
+  <meta property="og:image" content="https://cli-quest.com/og-image.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://cli-quest.com/">
+  <meta property="twitter:title" content="Learn Linux Terminal & Command Line | Interactive CLI Quest">
+  <meta property="twitter:description" content="Master Linux command line skills and cybersecurity fundamentals with 110 gamified browser-based terminal challenges.">
+  <meta property="twitter:image" content="https://cli-quest.com/og-image.png">
+
+  <!-- Schema.org JSON-LD Structured Data for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalApplication",
+    "name": "CLI Quest: Cyber Citadel",
+    "operatingSystem": "All",
+    "applicationCategory": "EducationalGame",
+    "educationalUse": "Interactive Course & Practice",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Interactive web application for learning Linux command line, Bash, and cybersecurity CTF skills.",
+    "hasCourse": {
+      "@type": "Course",
+      "name": "Linux Terminal Command Line Foundations",
+      "description": "110 step-by-step interactive terminal modules covering cat, ls, cd, grep, find, base64, and permissions.",
+      "provider": {
+        "@type": "Organization",
+        "name": "CLI Quest"
+      }
+    }
+  }
+  </script>
+
+  <style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col bg-[#0d1117] text-[#c9d1d9]">
+  <!-- SEO CRAWLER CONTENT SECTION (Hidden visually, fully indexable by search engines) -->
+  <section class="sr-only" aria-label="Course Overview and Curriculum Index">
+    <h2>Interactive Linux Command Line Course & Cybersecurity Training</h2>
+    <p>Welcome to CLI Quest: Cyber Citadel, the ultimate browser-based interactive Linux terminal tutorial. Learn Linux commands, directory navigation, Bash shell scripting, and Capture The Flag (CTF) cybersecurity skills through hands-on practice.</p>
+
+    <h3>What You Will Learn in This 110-Lesson Linux Course:</h3>
+    <ul>
+      <li><strong>Linux File Reading:</strong> Master the <code>cat</code> command, inspect text contents, and view file streams.</li>
+      <li><strong>Directory Navigation:</strong> Master <code>pwd</code> (print working directory), <code>ls</code> (list files), <code>ls -a</code> (show hidden files), and <code>cd</code> (change directory).</li>
+      <li><strong>Text Stream Processing & Search:</strong> Search logs with <code>grep</code>, count lines with <code>wc</code>, view line ranges with <code>head</code> and <code>tail</code>, and filter output with <code>sort</code> and <code>uniq</code>.</li>
+      <li><strong>File Inspection & Discovery:</strong> Inspect file magic bytes with <code>file</code>, find files recursively with <code>find</code>, and decode data with <code>base64 -d</code>.</li>
+      <li><strong>Permissions & Ownership:</strong> Understand Linux file permission modes (<code>chmod 755</code>, <code>chown</code>), SUID flags, and world-writable risks.</li>
+      <li><strong>Networking & System Admin:</strong> Analyze active network sockets with <code>ss -tuln</code>, test ICMP ping, view processes with <code>ps aux</code>, and analyze system logs with <code>journalctl</code>.</li>
+    </ul>
+  </section>
+
+  <!-- TOP HEADER -->
+  <header class="h-14 border-b border-[#30363d] bg-[#161b22] px-4 flex items-center justify-between shrink-0">
+    <div class="flex items-center space-x-3">
+      <div class="bg-cyan-500/20 text-cyan-400 p-2 rounded-lg border border-cyan-500/30">
+        <i class="fa-solid fa-terminal text-lg"></i>
+      </div>
+      <div>
+        <h1 class="text-base font-bold tracking-wide text-white flex items-center gap-2">
+          CLI QUEST <span class="text-xs px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono">110 LESSONS</span>
+        </h1>
+        <p class="text-xs text-gray-400">Interactive Linux Terminal Academy</p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-6 text-sm">
+      <div class="flex items-center space-x-3">
+        <span id="rank-badge" class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono text-xs font-bold">Cadet Recruit</span>
+        <div class="flex items-center space-x-2">
+          <span class="text-gray-400 text-xs uppercase tracking-wider font-semibold">XP:</span>
+          <span id="xp-text" class="text-xs font-mono font-bold text-amber-400">0 XP</span>
+          <div class="w-28 bg-gray-800 h-2.5 rounded-full overflow-hidden border border-gray-700 ml-1">
+            <div id="progress-bar" class="bg-gradient-to-r from-cyan-500 via-emerald-400 to-amber-400 h-full w-0 transition-all duration-300"></div>
+          </div>
+          <span id="progress-text" class="text-xs font-mono font-bold text-cyan-400">0/110</span>
+        </div>
+      </div>
+
+      <button id="sound-btn" onclick="toggleSound()" class="px-2.5 py-1.5 rounded-md bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-gray-300 transition text-xs flex items-center gap-1.5">
+        <i id="sound-icon" class="fa-solid fa-volume-high text-emerald-400"></i>
+        <span id="sound-label">Audio ON</span>
+      </button>
+
+      <button onclick="toggleHelpModal()" class="px-2.5 py-1.5 rounded-md bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-700/50 text-cyan-300 transition text-xs font-semibold flex items-center gap-1.5">
+        <i class="fa-solid fa-circle-question"></i>
+        <span>Help (?)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- SIDEBAR: MODULE LIST -->
+    <aside class="w-80 border-r border-[#30363d] bg-[#161b22]/70 flex flex-col shrink-0">
+      <div class="p-3 border-b border-[#30363d] bg-[#161b22] flex justify-between items-center">
+        <span class="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-2">
+          <i class="fa-solid fa-layer-group text-cyan-400"></i> Mission Modules
+        </span>
+        <span id="completed-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
+          0 / 110 Solved
+        </span>
+      </div>
+
+      <div id="level-list" class="flex-1 overflow-y-auto p-2 space-y-1.5">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div class="p-3 border-t border-[#30363d] bg-[#161b22] text-xs text-gray-400 flex justify-between items-center font-mono">
+        <span>Flag Format: <strong class="text-amber-400">4-Digit Code</strong></span>
+        <button onclick="resetProgress()" class="text-red-400 hover:text-red-300 text-[11px] underline">Reset All</button>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN PANEL -->
+    <main class="flex-1 flex flex-col bg-[#0d1117] overflow-hidden">
+
+      <!-- BRIEFING & QUIZ PANEL -->
+      <section class="border-b border-[#30363d] bg-[#161b22]/40 p-4 shrink-0 max-h-[52%] overflow-y-auto">
+        <div class="flex items-start justify-between gap-4 mb-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="brief-level-num" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyan-900/60 text-cyan-300 border border-cyan-700/50">Level 1 / 110</span>
+              <h2 id="brief-title" class="text-base font-bold text-white">Loading Title...</h2>
+            </div>
+            <p id="brief-concept" class="text-xs text-cyan-400 font-mono mt-0.5">Concept: Loading...</p>
+          </div>
+
+          <!-- FLAG SUBMISSION -->
+          <div class="bg-[#161b22] border border-[#30363d] p-2 rounded-lg flex items-center gap-2 shadow-sm">
+            <i class="fa-solid fa-flag text-amber-400 text-sm"></i>
+            <input type="text" id="flag-input" maxlength="4" placeholder="4-Digit Flag" class="w-24 bg-[#0d1117] border border-gray-700 rounded px-2 py-1 text-center font-mono text-sm text-amber-300 focus:outline-none focus:border-cyan-500 uppercase tracking-widest" onkeydown="if(event.key==='Enter') submitFlag()">
+            <button onclick="submitFlag()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded transition flex items-center gap-1">
+              <span>Verify</span>
+              <i class="fa-solid fa-check"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- LESSON CONTENT BOX -->
+        <div id="lesson-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+          <div class="bg-[#0d1117] border border-[#30363d] p-3 rounded-lg">
+            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <i class="fa-solid fa-book-open"></i> Concept & Logic
+            </h3>
+            <p id="brief-lesson" class="text-xs text-gray-300 leading-relaxed">
+              Loading lesson details...
+            </p>
+          </div>
+
+          <div class="bg-[#0d1117] border border-[#30363d] p-3 rounded-lg flex flex-col justify-between">
+            <div>
+              <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-code"></i> Syntax & Usage Examples
+              </h3>
+              <div id="brief-syntax" class="text-xs font-mono bg-[#161b22] p-2 rounded border border-gray-800 text-emerald-300 overflow-x-auto whitespace-pre-wrap">
+                $ command [options]
+              </div>
+            </div>
+            <div class="mt-2 pt-2 border-t border-gray-800 flex items-center justify-between text-xs text-gray-400">
+              <span class="font-semibold text-gray-300">Goal Task:</span>
+              <span id="brief-task" class="text-amber-300 font-medium">Loading task...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUIZ CONTAINER -->
+        <div id="quiz-container" class="hidden mt-3 bg-[#0d1117] border border-amber-500/40 p-4 rounded-lg">
+          <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap text-amber-400"></i> Checkpoint Knowledge Assessment
+          </h3>
+          <div id="quiz-questions-list" class="space-y-3 text-xs"></div>
+          <div class="mt-4 flex items-center justify-between border-t border-gray-800 pt-3">
+            <div id="quiz-feedback" class="text-xs font-mono"></div>
+            <button onclick="evaluateQuizAnswers()" class="px-4 py-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded transition flex items-center gap-1.5">
+              <i class="fa-solid fa-paper-plane"></i> Submit Quiz Answers
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TERMINAL ENGINE PANEL -->
+      <section class="flex-1 flex flex-col bg-[#0b0e14] relative overflow-hidden">
+        <div class="bg-[#161b22] border-b border-[#30363d] px-3 py-1.5 flex justify-between items-center text-xs font-mono text-gray-400 select-none">
+          <div class="flex items-center space-x-2">
+            <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+            <span class="ml-2 text-gray-300 font-semibold"><i class="fa-solid fa-terminal text-cyan-400 mr-1"></i> bash - cyber@citadel:~</span>
+          </div>
+          <div class="flex items-center space-x-3 text-[11px]">
+            <span>Press <kbd class="px-1 bg-gray-800 rounded border border-gray-700 text-cyan-300">Tab</kbd> for Auto-complete</span>
+            <button onclick="clearTerminal()" class="hover:text-white transition"><i class="fa-solid fa-trash-can mr-1"></i>Clear</button>
+          </div>
+        </div>
+
+        <div id="terminal-screen" class="flex-1 p-4 overflow-y-auto font-mono text-sm leading-relaxed text-gray-200 space-y-1 select-text" onclick="focusPrompt()"></div>
+
+        <div class="bg-[#0d1117] border-t border-[#30363d] p-3 flex items-center space-x-2 font-mono text-sm">
+          <span id="prompt-label" class="text-emerald-400 font-bold whitespace-nowrap">cadet@citadel:~$</span>
+          <div class="flex-1 relative flex items-center">
+            <input type="text" id="cmd-input" autocomplete="off" spellcheck="false" class="w-full bg-transparent text-cyan-200 focus:outline-none font-mono text-sm pr-4" placeholder="Type Linux command here..." onkeydown="handleKeydown(event)">
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- HELP MODAL -->
+  <div id="help-modal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+    <div class="bg-[#161b22] border border-[#30363d] rounded-xl w-11/12 max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
+      <div class="p-4 border-b border-[#30363d] flex justify-between items-center">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-book text-cyan-400"></i> Citadel Field Guide (110 Module Matrix)
+        </h3>
+        <button onclick="toggleHelpModal()" class="text-gray-400 hover:text-white text-lg px-2"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="p-4 overflow-y-auto space-y-3 text-xs font-mono text-gray-300">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">cat [file]</span> - Read & display file contents</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">pwd / ls [-a]</span> - Navigation & hidden file listing</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">cd [dir]</span> - Navigate directory hierarchy</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">head / tail / wc</span> - Line reading & character counts</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">grep [-i/-v/-n]</span> - Search text patterns</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">tr / sort / uniq</span> - Stream transforming & deduplication</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">find [path] -name</span> - Recursive filesystem discovery</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">base64 -d / md5sum</span> - Decoding payloads & integrity verification</div>
+        </div>
+      </div>
+      <div class="p-3 border-t border-[#30363d] bg-[#161b22] text-right">
+        <button onclick="toggleHelpModal()" class="px-4 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded text-xs">Close Field Guide</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // AUDIO SYNTHESIS ENGINE
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        initAudio();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
+        if (type === 'click') {
+          osc.type = 'sine'; osc.frequency.setValueAtTime(800, now); osc.frequency.exponentialRampToValueAtTime(400, now + 0.05);
+          gain.gain.setValueAtTime(0.05, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now); osc.stop(now + 0.05);
+        } else if (type === 'success') {
+          osc.type = 'triangle'; osc.frequency.setValueAtTime(523, now); osc.frequency.setValueAtTime(659, now + 0.1);
+          osc.frequency.setValueAtTime(783, now + 0.2); osc.frequency.setValueAtTime(1046, now + 0.3);
+          gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+          osc.start(now); osc.stop(now + 0.5);
+        } else if (type === 'error') {
+          osc.type = 'sawtooth'; osc.frequency.setValueAtTime(180, now); osc.frequency.setValueAtTime(130, now + 0.1);
+          gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+          osc.start(now); osc.stop(now + 0.25);
+        }
+      } catch(e){}
+    }
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('sound-label').innerText = soundEnabled ? 'Audio ON' : 'Audio OFF';
+      document.getElementById('sound-icon').className = soundEnabled ? 'fa-solid fa-volume-high text-emerald-400' : 'fa-solid fa-volume-xmark text-gray-500';
+    }
+
+    // SAFE LOCALSTORAGE WRAPPER
+    function getSavedProgress() {
+      try {
+        const data = localStorage.getItem('cli_quest_completed_110');
+        return new Set(data ? JSON.parse(data) : []);
+      } catch (e) {
+        return new Set();
+      }
+    }
+    function saveProgress(setObj) {
+      try {
+        localStorage.setItem('cli_quest_completed_110', JSON.stringify([...setObj]));
+      } catch (e) {}
+    }
+
+    // BASE TOPICS DATA GENERATOR
+    const BASE_TOPICS = [
+      { cmd: "cat", concept: "Reading Files: cat & ls", syntax: "cat <filename>   # Read file contents\nls               # List files in directory\npwd              # Print working directory path", file: "welcome.txt", task: "Use 'ls' to list the directory files, then use 'cat <filename>' to read the target file and uncover the 4-digit passcode." },
+      { cmd: "ls -a", concept: "Hidden Files: ls -a & cat", syntax: "ls -a            # List ALL files including hidden dotfiles\ncat .<filename>  # Read hidden file content", file: ".hidden_pass", task: "Use 'ls -a' to discover hidden dotfiles in the directory, then use 'cat' to read the hidden passcode file." },
+      { cmd: "cd", concept: "Directory Traversal & cat", syntax: "cd <folder_name> # Navigate into directory\nls               # List directory contents\ncat <filename>   # Read target file inside folder", file: "security_sector/passcode.txt", task: "Navigate into the security folder using 'cd', inspect its contents with 'ls', and read the file inside with 'cat'." },
+      { cmd: "cat", concept: "Quoted Filenames with Spaces", syntax: "cat \"file name with spaces.txt\"\ncat file\\ name\\ with\\ spaces.txt", file: "classified code.txt", task: "Inspect the directory to locate the file containing spaces in its name, then use 'cat' with quotes to read its passcode." },
+      { cmd: "grep", concept: "Text Filtering: grep", syntax: "grep \"FLAG\" logfile.txt   # Search lines containing FLAG", file: "server_logs.txt", task: "Filter the log file using 'grep' to search for key terms and isolate the 4-digit passcode." },
+      { cmd: "file", concept: "File Inspection: file", syntax: "file target_file          # Examine internal file magic bytes", file: "transmission.dat", task: "Examine the files in your directory using 'file <filename>' to identify which item is the text document hiding the passcode." },
+      { cmd: "base64", concept: "Base64 Decoding: base64 -d", syntax: "base64 -d signal.b64      # Decode base64 encoded strings", file: "signal.b64", task: "Locate the encoded file in your directory and decode it using 'base64 -d <filename>' to reveal the cleartext passcode." },
+      { cmd: "pipe", concept: "Command Piping: |", syntax: "cat stream.txt | grep FLAG # Pipe cat output into grep filter", file: "stream.txt", task: "Combine 'cat' and 'grep' using a pipe ('|') to stream and filter the file content for the passcode line." },
+      { cmd: "deep_cd", concept: "Deep Path Traversal & cat", syntax: "cd path/to/folder\ncat key.txt", file: "citadel/core/vault/key.txt", task: "Traverse into the nested directory structure using 'cd' and read the passcode file located deep within the vault." }
+    ];
+
+    const QUIZZES = [
+      { id: 10, title: "Foundations & File Reading Checkpoint", flag: "3842", q: [
+        { question: "Which Linux command is used to read and display the full contents of a text file?", options: ["dir", "cat", "pwd", "open"], correct: 1 },
+        { question: "Which command option reveals hidden files starting with a dot '.'?", options: ["-h", "-v", "-a", "--hidden"], correct: 2 },
+        { question: "Which command searches inside text files for lines matching a keyword?", options: ["find", "locate", "grep", "search"], correct: 2 },
+        { question: "How do you navigate into a directory named 'security'?", options: ["open security", "cd security", "goto security", "ls security"], correct: 1 }
+      ]},
+      { id: 20, title: "Text Stream Processing Checkpoint", flag: "7193", q: [
+        { question: "Which command prints the first N lines of a file?", options: ["tail", "head", "top", "front"], correct: 1 },
+        { question: "Which wc option calculates the total line count in a file?", options: ["-w", "-c", "-l", "-n"], correct: 2 },
+        { question: "Which utility translates or replaces characters in a stream?", options: ["tr", "sed", "cut", "rev"], correct: 0 },
+        { question: "What command deduplicates adjacent repeated lines?", options: ["sort", "uniq", "clean", "filter"], correct: 1 }
+      ]},
+      { id: 30, title: "Search Engine & Regex Checkpoint", flag: "5429", q: [
+        { question: "Which command recursively locates files by name pattern?", options: ["grep", "find", "search", "where"], correct: 1 },
+        { question: "What flag enables case-insensitive matching in grep?", options: ["-v", "-n", "-i", "-c"], correct: 2 },
+        { question: "What flag inverts grep matching to return non-matching lines?", options: ["-i", "-v", "-l", "-x"], correct: 1 },
+        { question: "How do you specify regular file type in find command?", options: ["-type d", "-type f", "-file", "-is_file"], correct: 1 }
+      ]},
+      { id: 40, title: "System Recon & Environment Checkpoint", flag: "8204", q: [
+        { question: "Which command displays current logged-in username?", options: ["id", "whoami", "uname", "user"], correct: 1 },
+        { question: "Which command lists all active environment variables?", options: ["env", "var", "echo", "setenv"], correct: 0 },
+        { question: "Which command prints system kernel architecture info?", options: ["hostname", "uname -a", "sysinfo", "ver"], correct: 1 },
+        { question: "What character precedes variable expansion in bash?", options: ["%", "@", "$", "&"], correct: 2 }
+      ]},
+      { id: 50, title: "Permissions & Ownership Checkpoint", flag: "6038", q: [
+        { question: "What numeric mode represents rwxr-xr-x file permissions?", options: ["777", "755", "644", "700"], correct: 1 },
+        { question: "Which command changes user and group ownership of a file?", options: ["chmod", "chown", "chgrp", "useradd"], correct: 1 },
+        { question: "What command inspects detailed file stat metadata?", options: ["stat", "lsattr", "file", "info"], correct: 0 },
+        { question: "Which permission bit enables executing binary files?", options: ["r", "w", "x", "s"], correct: 2 }
+      ]},
+      { id: 60, title: "Field Extraction & Stream Editing Checkpoint", flag: "9147", q: [
+        { question: "Which tool extracts delimited columns from tabular text?", options: ["cut", "grep", "cat", "split"], correct: 0 },
+        { question: "Which sed syntax performs global text replacement?", options: ["s/old/new/g", "r/old/new/", "replace/old/new/", "d/old/new/"], correct: 0 },
+        { question: "Which command duplicates output to stdout and logfile?", options: ["pipe", "tee", "diff", "echo"], correct: 1 },
+        { question: "What default field delimiter is used by AWK?", options: ["Comma", "Whitespace", "Colon", "Semicolon"], correct: 1 }
+      ]},
+      { id: 70, title: "Cryptography & Hashes Checkpoint", flag: "2581", q: [
+        { question: "Which checksum utility computes a 128-bit MD5 hash?", options: ["sha256sum", "md5sum", "crc32", "base64"], correct: 1 },
+        { question: "What cipher rotates letters by 13 positions?", options: ["ROT13", "Atbash", "Base64", "AES"], correct: 0 },
+        { question: "Which utility extracts ASCII strings from binary files?", options: ["strings", "grep", "cat", "read"], correct: 0 },
+        { question: "Which tool generates hex dumps of binary files?", options: ["xxd", "cat", "echo", "diff"], correct: 0 }
+      ]},
+      { id: 80, title: "Archives & Storage Checkpoint", flag: "4619", q: [
+        { question: "Which tar flags extract a compressed tar.gz archive?", options: ["-cvf", "-zxvf", "-zip", "-create"], correct: 1 },
+        { question: "Which tool decompresses standard .gz files?", options: ["unzip", "gzip -d", "tar", "bunzip"], correct: 1 },
+        { question: "Which command calculates disk space usage of a folder?", options: ["df -h", "du -sh", "ls -l", "stat"], correct: 1 },
+        { question: "What command creates symbolic shortcuts to files?", options: ["ln -s", "link -a", "cp -s", "shortcut"], correct: 0 }
+      ]},
+      { id: 90, title: "Process & Service Management Checkpoint", flag: "1350", q: [
+        { question: "Which command lists all running system processes?", options: ["ps aux", "top -l", "listproc", "services"], correct: 0 },
+        { question: "Which signal number forces immediate process termination?", options: ["SIGTERM (15)", "SIGKILL (9)", "SIGINT (2)", "SIGHUP (1)"], correct: 1 },
+        { question: "Which command inspects systemd service logs?", options: ["syslog", "journalctl", "crontab", "logcat"], correct: 1 },
+        { question: "What utility edits scheduled automated background cron jobs?", options: ["crontab -e", "cron --add", "sched", "taskmgr"], correct: 0 }
+      ]},
+      { id: 100, title: "Networking & Remote Protocols Checkpoint", flag: "8472", q: [
+        { question: "Which tool sends ICMP packets to test connectivity?", options: ["ping", "dig", "curl", "netstat"], correct: 0 },
+        { question: "Which command lists listening network sockets and ports?", options: ["ss -tuln", "ifconfig", "ping", "traceroute"], correct: 0 },
+        { question: "Which tool performs DNS record queries?", options: ["dig", "ping", "traceroute", "route"], correct: 0 },
+        { question: "What tool securely transfers files across remote SSH connections?", options: ["scp", "ftp", "curl", "wget"], correct: 0 }
+      ]},
+      { id: 110, title: "Grand Master Citadel Checkpoint Final", flag: "9999", q: [
+        { question: "What find flag isolates world-writable files?", options: ["-perm -0002", "-perm 777", "-writable", "-user root"], correct: 0 },
+        { question: "Which find flag isolates SUID executable binaries?", options: ["-perm -4000", "-perm 0777", "-suid", "-exec"], correct: 0 },
+        { question: "Which command displays defined command shortcuts?", options: ["alias", "env", "history", "export"], correct: 0 },
+        { question: "What command passes standard output as arguments?", options: ["xargs", "pipe", "redirect", "tee"], correct: 0 }
+      ]}
+    ];
+
+    const LEVELS = [];
+    const quizMap = {};
+    QUIZZES.forEach(q => { quizMap[q.id] = q; });
+
+    for (let i = 1; i <= 110; i++) {
+      if (quizMap[i]) {
+        const qObj = quizMap[i];
+        LEVELS.push({
+          id: i,
+          title: `[L${i}] ${qObj.title}`,
+          concept: `Assessment: Levels ${i-9}-${i-1} Review`,
+          flag: qObj.flag,
+          isQuiz: true,
+          lesson: `Checkpoint Assessment ${i/10}! Test your understanding of concepts covered in the preceding 9 lessons. Answer all 4 scenario questions correctly to derive the verification flag.`,
+          syntax: "Select your answers in the quiz widget above and click 'Submit Quiz Answers'.",
+          task: `Answer all 4 assessment questions to unlock Flag ${qObj.flag}.`,
+          quizQuestions: qObj.q,
+          filesystem: {
+            "/home/cadet": { type: "dir", children: { "quiz_instructions.txt": { type: "file", content: `Complete the 4 quiz questions to unlock Flag ${qObj.flag}` } } }
+          }
+        });
+      } else {
+        const tObj = BASE_TOPICS[(i - 1) % BASE_TOPICS.length];
+        const phase = Math.ceil(i / 10);
+        
+        // Custom explicit level 1, 2, 3 content to ensure 'cat' is taught first
+        let titleStr = `[L${i}] ${tObj.concept} (Phase ${phase})`;
+        let conceptStr = `Command: ${tObj.cmd}`;
+        let lessonStr = `Module ${i} of 110. Master '${tObj.cmd}' to inspect directory structures and read file contents to find passcode.`;
+        let taskStr = tObj.task;
+        let syntaxStr = tObj.syntax;
+        let flagVal = String(1000 + (i * 137) % 8999).padStart(4, '0');
+
+        if (i === 1) {
+          titleStr = "[L1] Reading Files with 'cat' & Directory Recon";
+          conceptStr = "File Reading: cat, pwd, & ls";
+          syntaxStr = "cat <filename>   # Read & display file contents\npwd              # Print current directory path\nls               # List visible files in directory";
+          lessonStr = "Welcome Cadet! To read the contents of any file in Linux, use the 'cat' (concatenate) command followed by the filename (e.g., 'cat <filename>'). First use 'ls' to list files in your current directory, then use 'cat' to inspect the file contents.";
+          taskStr = "Use 'ls' to discover the files in your directory, then use 'cat <filename>' to read the text file and uncover your first 4-digit passcode.";
+          flagVal = "1024";
+        } else if (i === 2) {
+          titleStr = "[L2] Unveiling Hidden Files with 'ls -a' & 'cat'";
+          conceptStr = "Hidden Files: ls -a & cat";
+          syntaxStr = "ls -a            # List ALL files including hidden dotfiles\ncat .<filename>  # Read hidden file contents using cat";
+          lessonStr = "In Linux, files starting with a dot '.' are hidden from standard 'ls' output. Use 'ls -a' to reveal hidden dotfiles, then read their contents using 'cat .<filename>'.";
+          taskStr = "Run 'ls -a' to locate the hidden file, then use 'cat' to read its contents and extract the hidden 4-digit passcode.";
+          flagVal = "4096";
+        } else if (i === 3) {
+          titleStr = "[L3] Navigating Folders with 'cd' & Reading Files";
+          conceptStr = "Directory Traversal: cd & cat";
+          syntaxStr = "cd <folder_name> # Enter directory\nls               # List folder contents\ncat <filename>   # Read passcode file using cat";
+          lessonStr = "Directories organize related files. Use 'ls' to view your current directory, 'cd' to move into a subfolder, and 'cat' to read the passcode file inside.";
+          taskStr = "Use 'ls' to view the directory, navigate into the security folder using 'cd', and read the file inside with 'cat' to extract the 4-digit passcode.";
+          flagVal = "7331";
+        }
+
+        let contentStr = `Citadel Security Sector (Level ${i}). Access Flag: ${flagVal}`;
+        if (i === 1) contentStr = "Welcome Cadet! Your first 4-digit passcode flag is 1024";
+        else if (i === 2) contentStr = "You uncovered the hidden code! Flag: 4096";
+        else if (i === 3) contentStr = "Access Granted! Citadel Flag: 7331";
+        else if (tObj.cmd === "base64") contentStr = btoa(`Decoded Citadel Flag: ${flagVal}`) + "\n";
+        else if (tObj.cmd === "grep" || tObj.cmd === "pipe") contentStr = `10:00:01 Operational\n10:01:23 SECURITY FLAG CODE: ${flagVal}\n10:02:00 System OK`;
+
+        const fname = tObj.file.includes('/') ? tObj.file.split('/').pop() : tObj.file;
+
+        let fsChildren = {};
+        if (i === 3) {
+          fsChildren = {
+            "security_sector": {
+              type: "dir",
+              children: {
+                "passcode.txt": { type: "file", content: contentStr }
+              }
+            }
+          };
+        } else {
+          fsChildren = {
+            [fname]: { type: "file", content: contentStr },
+            "notes.txt": { type: "file", content: `Citadel Module ${i} System Operational.` }
+          };
+        }
+
+        LEVELS.push({
+          id: i,
+          title: titleStr,
+          concept: conceptStr,
+          flag: flagVal,
+          isQuiz: false,
+          lesson: lessonStr,
+          syntax: syntaxStr,
+          task: taskStr,
+          filesystem: {
+            "/home/cadet": {
+              type: "dir",
+              children: fsChildren
+            }
+          }
+        });
+      }
+    }
+
+    // GAME STATE VARIABLES
+    let activeLevelId = 1;
+    let completedLevels = getSavedProgress();
+    let currentPath = "/home/cadet";
+    let cmdHistory = [];
+    let historyIndex = -1;
+
+    // INITIALIZATION FUNCTION
+    function initApp() {
+      renderLevelList();
+      loadLevel(1);
+      updateProgressUI();
+      printWelcomeBanner();
+    }
+
+    window.onload = initApp;
+    document.addEventListener("DOMContentLoaded", initApp);
+
+    // SIDEBAR RENDER
+    function renderLevelList() {
+      const container = document.getElementById('level-list');
+      if (!container) return;
+      container.innerHTML = '';
+
+      LEVELS.forEach(level => {
+        const isUnlocked = level.id === 1 || completedLevels.has(level.id - 1) || completedLevels.has(level.id);
+        const isCompleted = completedLevels.has(level.id);
+        const isActive = level.id === activeLevelId;
+
+        const card = document.createElement('div');
+        card.className = `p-2 rounded-lg border transition-all cursor-pointer flex items-center justify-between ${
+          isActive
+            ? (level.isQuiz ? 'bg-amber-950/70 border-amber-500 glow-gold' : 'bg-cyan-950/60 border-cyan-500/80 glow-cyan')
+            : isCompleted
+            ? 'bg-[#1c2128] border-emerald-800/60 text-gray-300 hover:border-emerald-600'
+            : isUnlocked
+            ? 'bg-[#161b22] border-gray-800 text-gray-300 hover:border-gray-600'
+            : 'bg-[#0d1117] border-gray-900 text-gray-600 opacity-50 cursor-not-allowed'
+        }`;
+
+        card.onclick = () => {
+          if (isUnlocked) { playSound('click'); loadLevel(level.id); }
+          else { playSound('error'); appendTerminalOutput(`[Access Denied] Complete Level ${level.id - 1} first!`, 'text-red-400'); }
+        };
+
+        card.innerHTML = `
+          <div class="flex items-center space-x-2 truncate">
+            <div class="w-6 h-6 rounded flex items-center justify-center font-mono text-xs font-bold shrink-0 ${
+              isCompleted ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40' : level.isQuiz ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-gray-800 text-gray-300'
+            }">
+              ${isCompleted ? '<i class="fa-solid fa-check"></i>' : level.id}
+            </div>
+            <div class="truncate">
+              <div class="text-xs font-semibold truncate ${level.isQuiz ? 'text-amber-300 font-bold' : 'text-gray-200'}">${level.title}</div>
+              <div class="text-[10px] font-mono text-gray-400 truncate">${level.concept}</div>
+            </div>
+          </div>
+          <div class="shrink-0 ml-1">
+            ${isCompleted ? '<span class="text-xs text-emerald-400 font-mono font-bold">100%</span>' : isUnlocked ? '<i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>' : '<i class="fa-solid fa-lock text-xs text-gray-600"></i>'}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // LOAD LEVEL BRIEFING
+    function loadLevel(levelId) {
+      activeLevelId = levelId;
+      const level = LEVELS.find(l => l.id === levelId);
+      if (!level) return;
+
+      currentPath = "/home/cadet";
+      document.getElementById('brief-level-num').innerText = `Level ${level.id} / 110`;
+      document.getElementById('brief-title').innerText = level.title;
+      document.getElementById('brief-concept').innerText = `Concept: ${level.concept}`;
+      document.getElementById('brief-lesson').innerText = level.lesson;
+      document.getElementById('brief-syntax').innerText = level.syntax;
+      document.getElementById('brief-task').innerText = level.task;
+      document.getElementById('flag-input').value = '';
+
+      const quizBox = document.getElementById('quiz-container');
+
+      if (level.isQuiz) {
+        quizBox.classList.remove('hidden');
+        renderQuizQuestions(level.quizQuestions);
+      } else {
+        quizBox.classList.add('hidden');
+      }
+
+      renderLevelList();
+      updatePrompt();
+
+      appendTerminalOutput(`\n--- LOADED MISSION MODULE ${level.id}: ${level.title.toUpperCase()} ---`, 'text-cyan-400 font-bold');
+      appendTerminalOutput(`Task: ${level.task}`, 'text-amber-300');
+      focusPrompt();
+    }
+
+    // RENDER QUIZ QUESTIONS
+    function renderQuizQuestions(questions) {
+      const container = document.getElementById('quiz-questions-list');
+      const feedback = document.getElementById('quiz-feedback');
+      feedback.innerText = '';
+      container.innerHTML = '';
+
+      questions.forEach((q, idx) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'bg-[#161b22] p-2.5 rounded border border-gray-800 space-y-1.5';
+        
+        let optionsHtml = '';
+        q.options.forEach((opt, optIdx) => {
+          optionsHtml += `
+            <label class="flex items-center gap-2 cursor-pointer hover:text-cyan-300 text-gray-300">
+              <input type="radio" name="quiz_q_${q.id}" value="${optIdx}" class="accent-amber-500">
+              <span>${String.fromCharCode(65 + optIdx)}) ${opt}</span>
+            </label>
+          `;
+        });
+
+        qDiv.innerHTML = `
+          <div class="font-semibold text-gray-200">Q${idx + 1}: ${q.question}</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 mt-1 pl-2 font-mono">${optionsHtml}</div>
+        `;
+        container.appendChild(qDiv);
+      });
+    }
+
+    // EVALUATE QUIZ
+    function evaluateQuizAnswers() {
+      const level = LEVELS.find(l => l.id === activeLevelId);
+      if (!level || !level.isQuiz) return;
+
+      let allCorrect = true;
+      let answeredCount = 0;
+
+      level.quizQuestions.forEach((q) => {
+        const selected = document.querySelector(`input[name="quiz_q_${q.id}"]:checked`);
+        if (selected) {
+          answeredCount++;
+          if (parseInt(selected.value) !== q.correct) allCorrect = false;
+        } else {
+          allCorrect = false;
+        }
+      });
+
+      const feedback = document.getElementById('quiz-feedback');
+      if (answeredCount < level.quizQuestions.length) {
+        playSound('error');
+        feedback.className = 'text-xs font-mono text-amber-400';
+        feedback.innerText = '⚠️ Select answers for all 4 questions before submitting.';
+        return;
+      }
+
+      if (allCorrect) {
+        playSound('success');
+        feedback.className = 'text-xs font-mono text-emerald-400 font-bold';
+        feedback.innerText = `✅ Answers verified! Code: ${level.flag}`;
+        document.getElementById('flag-input').value = level.flag;
+        submitFlag();
+      } else {
+        playSound('error');
+        feedback.className = 'text-xs font-mono text-red-400';
+        feedback.innerText = '❌ Some answers were incorrect. Review prior concepts and try again!';
+      }
+    }
+
+    // UPDATE UI PROGRESS
+    function updateProgressUI() {
+      const total = 110;
+      const count = completedLevels.size;
+      const percentage = Math.round((count / total) * 100);
+      const totalXP = count * 100;
+
+      let rank = "Cadet Recruit";
+      if (totalXP >= 8000) rank = "Grandmaster Root";
+      else if (totalXP >= 5000) rank = "Citadel Architect";
+      else if (totalXP >= 2500) rank = "Shell Specialist";
+      else if (totalXP >= 1000) rank = "Terminal Operative";
+
+      document.getElementById('progress-bar').style.width = `${percentage}%`;
+      document.getElementById('progress-text').innerText = `${count}/${total} (${percentage}%)`;
+      document.getElementById('completed-badge').innerText = `${count} / ${total} Solved`;
+      
+      const xpElem = document.getElementById('xp-text');
+      if (xpElem) xpElem.innerText = `${totalXP} XP`;
+      const rankElem = document.getElementById('rank-badge');
+      if (rankElem) rankElem.innerText = rank;
+    }
+
+    // SUBMIT FLAG
+    function submitFlag() {
+      const input = document.getElementById('flag-input');
+      const val = input.value.trim();
+      const currentLevel = LEVELS.find(l => l.id === activeLevelId);
+
+      if (!val) {
+        playSound('error');
+        appendTerminalOutput(`[Verification Error] Enter a 4-digit code.`, 'text-amber-400');
+        return;
+      }
+
+      const termScreen = document.getElementById('terminal-screen');
+      if (val === currentLevel.flag) {
+        playSound('success');
+        completedLevels.add(activeLevelId);
+        saveProgress(completedLevels);
+
+        termScreen.classList.remove('flash-success', 'flash-error');
+        void termScreen.offsetWidth; // trigger reflow
+        termScreen.classList.add('flash-success');
+
+        appendTerminalOutput(`[SUCCESS] Flag ${val} verified! Level ${activeLevelId} cleared!`, 'text-emerald-400 font-bold');
+        updateProgressUI();
+
+        if (activeLevelId < 110) {
+          setTimeout(() => { loadLevel(activeLevelId + 1); }, 1000);
+        } else {
+          appendTerminalOutput(`🎉 GRAND MASTER ACCOMPLISHED! You completed all 110 Citadel Modules!`, 'text-amber-300 font-bold');
+        }
+      } else {
+        playSound('error');
+        termScreen.classList.remove('flash-success', 'flash-error');
+        void termScreen.offsetWidth;
+        termScreen.classList.add('flash-error');
+        appendTerminalOutput(`[DENIED] Flag '${val}' is incorrect for Level ${activeLevelId}.`, 'text-red-400');
+      }
+      input.value = '';
+      renderLevelList();
+    }
+
+    function resetProgress() {
+      if (confirm("Reset all 110 level progress?")) {
+        completedLevels.clear();
+        saveProgress(completedLevels);
+        updateProgressUI();
+        loadLevel(1);
+        playSound('click');
+      }
+    }
+
+    function appendTerminalOutput(text, className = 'text-gray-300') {
+      const screen = document.getElementById('terminal-screen');
+      const line = document.createElement('div');
+      line.className = `${className} whitespace-pre-wrap break-words font-mono`;
+      line.innerText = text;
+      screen.appendChild(line);
+      screen.scrollTop = screen.scrollHeight;
+    }
+
+    function printWelcomeBanner() {
+      appendTerminalOutput(`
+   ______  __    ____    ____  __  AE  ____ _____
+  / ____/ / /   /  _/   / __ \/ / / / / __ / ___/  110 LESSONS
+ / /     / /    / /    / / / / / / / / /_/  \__ \   FULL EXPANSION
+/ /___  / /____/ /    / /_/ / /_/ / / ____/___/ /  
+\____/ /_____/___/    \____/\____/ /_/   /____/  
+
+Type 'help' or click Help (?) for command reference.
+      `, 'text-cyan-400 font-bold');
+    }
+
+    function clearTerminal() { document.getElementById('terminal-screen').innerHTML = ''; playSound('click'); }
+    function focusPrompt() { document.getElementById('cmd-input').focus(); }
+    function updatePrompt() { document.getElementById('prompt-label').innerText = `cadet@citadel:${currentPath}$`; }
+
+    // TERMINAL COMMAND INTERPRETER
+    function getDirectoryNode(targetPath = currentPath) {
+      const level = LEVELS.find(l => l.id === activeLevelId);
+      if (!level || !level.filesystem) return null;
+      let root = level.filesystem["/home/cadet"];
+      if (targetPath === "/home/cadet") return root;
+
+      const parts = targetPath.replace("/home/cadet/", "").split('/').filter(Boolean);
+      let curr = root;
+      for (let p of parts) {
+        if (curr && curr.children && curr.children[p]) {
+          curr = curr.children[p];
+        } else {
+          return null;
+        }
+      }
+      return curr;
+    }
+
+    function handleKeydown(e) {
+      const input = document.getElementById('cmd-input');
+      if (e.key === 'Enter') {
+        const cmd = input.value.trim();
+        if (cmd) { cmdHistory.push(cmd); historyIndex = cmdHistory.length; executeCommand(cmd); }
+        input.value = '';
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (cmdHistory.length > 0 && historyIndex > 0) { historyIndex--; input.value = cmdHistory[historyIndex]; }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex < cmdHistory.length - 1) { historyIndex++; input.value = cmdHistory[historyIndex]; }
+        else { historyIndex = cmdHistory.length; input.value = ''; }
+      }
+    }
+
+    function executeCommand(rawCmd) {
+      appendTerminalOutput(`cadet@citadel:${currentPath}$ ${rawCmd}`, 'text-emerald-400 font-semibold');
+      const tokens = rawCmd.split(' ').filter(Boolean);
+      if (!tokens.length) return;
+      const cmd = tokens[0].toLowerCase();
+      const dir = getDirectoryNode();
+
+      if (cmd === 'help' || cmd === '?') { toggleHelpModal(); return; }
+      if (cmd === 'clear') { clearTerminal(); return; }
+      if (cmd === 'pwd') { appendTerminalOutput(currentPath, 'text-gray-200'); return; }
+
+      if (cmd === 'ls') {
+        const showAll = tokens.includes('-a');
+        if (dir && dir.children) {
+          const items = Object.keys(dir.children).filter(k => showAll || !k.startsWith('.'));
+          appendTerminalOutput(items.join('  ') || '(empty)', 'text-gray-200');
+        } else {
+          appendTerminalOutput("(empty directory)", 'text-gray-200');
+        }
+        return;
+      }
+
+      if (cmd === 'cd') {
+        const target = tokens[1] || '~';
+        if (target === '~' || target === '/home/cadet') {
+          currentPath = '/home/cadet';
+          updatePrompt();
+          return;
+        }
+        if (target === '..') {
+          if (currentPath !== '/home/cadet') {
+            const parts = currentPath.split('/');
+            parts.pop();
+            currentPath = parts.join('/') || '/home/cadet';
+            updatePrompt();
+          }
+          return;
+        }
+        if (dir && dir.children && dir.children[target]) {
+          if (dir.children[target].type === 'dir') {
+            currentPath = `${currentPath}/${target}`;
+            updatePrompt();
+          } else {
+            appendTerminalOutput(`bash: cd: ${target}: Not a directory`, 'text-red-400');
+          }
+        } else {
+          appendTerminalOutput(`bash: cd: ${target}: No such file or directory`, 'text-red-400');
+        }
+        return;
+      }
+
+      if (cmd === 'cat') {
+        const fileName = tokens.slice(1).join(' ').replace(/['"]/g, '');
+        if (!fileName) { appendTerminalOutput("cat: missing file argument", 'text-red-400'); return; }
+        
+        if (dir && dir.children && dir.children[fileName]) {
+          if (dir.children[fileName].type === 'dir') {
+            appendTerminalOutput(`cat: ${fileName}: Is a directory`, 'text-red-400');
+          } else {
+            appendTerminalOutput(dir.children[fileName].content, 'text-gray-200');
+          }
+        } else {
+          appendTerminalOutput(`cat: ${fileName}: No such file or directory`, 'text-red-400');
+        }
+        return;
+      }
+
+      if (cmd === 'grep') {
+        const kw = tokens[1] ? tokens[1].replace(/['"]/g, '') : '';
+        const file = tokens[2];
+        if (dir && dir.children && dir.children[file]) {
+          const lines = dir.children[file].content.split('\n');
+          const matched = lines.filter(l => l.toLowerCase().includes(kw.toLowerCase()));
+          appendTerminalOutput(matched.join('\n') || 'No matches found', 'text-gray-200');
+        } else {
+          appendTerminalOutput(`grep: ${file}: No such file or directory`, 'text-red-400');
+        }
+        return;
+      }
+
+      if (cmd === 'base64') {
+        const targetFile = tokens.find(t => !t.startsWith('-') && t !== 'base64');
+        if (tokens.includes('-d') && targetFile && dir && dir.children && dir.children[targetFile]) {
+          try { appendTerminalOutput(atob(dir.children[targetFile].content.trim()), 'text-emerald-300'); }
+          catch(e) { appendTerminalOutput("base64: invalid input decoding error", 'text-red-400'); }
+          return;
+        }
+      }
+
+      appendTerminalOutput(`[Executed Command]: ${rawCmd}`, 'text-gray-400');
+    }
+
+    function toggleHelpModal() {
+      document.getElementById('help-modal').classList.toggle('hidden');
+      playSound('click');
+    }
+  </script>
+</body>
+</html>
