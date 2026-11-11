@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full bg-[#0d1117]">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,26 +53,56 @@
   }
   </script>
 
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome for Cyber Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: JetBrains Mono & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
   <style>
+    body { font-family: 'Inter', sans-serif; background-color: #0d1117; color: #c9d1d9; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #161b22; }
+    ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #484f58; }
+    .glow-cyan { box-shadow: 0 0 12px rgba(56, 189, 248, 0.35); }
+    .glow-gold { box-shadow: 0 0 12px rgba(245, 158, 11, 0.4); }
+    
+    @keyframes pulse-success {
+      0% { box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
+      50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.7); }
+      100% { box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @keyframes pulse-error {
+      0% { box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+      50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.7); }
+      100% { box-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .flash-success { animation: pulse-success 0.4s ease-out; }
+    .flash-error { animation: pulse-error 0.4s ease-out; }
+  </style>
 </head>
-<body class="h-screen w-screen overflow-hidden flex flex-col bg-[#0d1117] text-[#c9d1d9]">
-  <!-- SEO CRAWLER CONTENT SECTION (Hidden visually, fully indexable by search engines) -->
+<body class="h-full w-full overflow-hidden flex flex-col bg-[#0d1117] text-[#c9d1d9]">
+
+  <!-- SEO CRAWLER CONTENT SECTION (Hidden visually, indexable by search bots) -->
   <section class="sr-only" aria-label="Course Overview and Curriculum Index">
     <h2>Interactive Linux Command Line Course & Cybersecurity Training</h2>
-    <p>Welcome to CLI Quest: Cyber Citadel, the ultimate browser-based interactive Linux terminal tutorial. Learn Linux commands, directory navigation, Bash shell scripting, and Capture The Flag (CTF) cybersecurity skills through hands-on practice.</p>
-
-    <h3>What You Will Learn in This 110-Lesson Linux Course:</h3>
+    <p>Welcome to CLI Quest: Cyber Citadel, an interactive Linux terminal tutorial. Learn Linux commands, directory navigation, Bash shell scripting, and Capture The Flag (CTF) cybersecurity skills through hands-on practice.</p>
     <ul>
-      <li><strong>Linux File Reading:</strong> Master the <code>cat</code> command, inspect text contents, and view file streams.</li>
-      <li><strong>Directory Navigation:</strong> Master <code>pwd</code> (print working directory), <code>ls</code> (list files), <code>ls -a</code> (show hidden files), and <code>cd</code> (change directory).</li>
-      <li><strong>Text Stream Processing & Search:</strong> Search logs with <code>grep</code>, count lines with <code>wc</code>, view line ranges with <code>head</code> and <code>tail</code>, and filter output with <code>sort</code> and <code>uniq</code>.</li>
+      <li><strong>Linux File Reading:</strong> Master <code>cat</code>, inspect text contents, and view file streams.</li>
+      <li><strong>Directory Navigation:</strong> Master <code>pwd</code>, <code>ls</code>, <code>ls -a</code>, and <code>cd</code>.</li>
+      <li><strong>Text Processing & Search:</strong> Search logs with <code>grep</code>, count lines with <code>wc</code>, view line ranges with <code>head</code> and <code>tail</code>, and filter output with <code>sort</code> and <code>uniq</code>.</li>
       <li><strong>File Inspection & Discovery:</strong> Inspect file magic bytes with <code>file</code>, find files recursively with <code>find</code>, and decode data with <code>base64 -d</code>.</li>
       <li><strong>Permissions & Ownership:</strong> Understand Linux file permission modes (<code>chmod 755</code>, <code>chown</code>), SUID flags, and world-writable risks.</li>
-      <li><strong>Networking & System Admin:</strong> Analyze active network sockets with <code>ss -tuln</code>, test ICMP ping, view processes with <code>ps aux</code>, and analyze system logs with <code>journalctl</code>.</li>
+      <li><strong>Networking & Admin:</strong> Analyze active sockets with <code>ss -tuln</code>, test ICMP ping, view processes with <code>ps aux</code>, and analyze system logs with <code>journalctl</code>.</li>
     </ul>
   </section>
 
-  <!-- TOP HEADER -->
+  <!-- TOP HEADER / STATS BAR -->
   <header class="h-14 border-b border-[#30363d] bg-[#161b22] px-4 flex items-center justify-between shrink-0">
     <div class="flex items-center space-x-3">
       <div class="bg-cyan-500/20 text-cyan-400 p-2 rounded-lg border border-cyan-500/30">
@@ -86,27 +116,29 @@
       </div>
     </div>
 
-    <div class="flex items-center space-x-6 text-sm">
+    <div class="flex items-center space-x-4 text-sm">
       <div class="flex items-center space-x-3">
         <span id="rank-badge" class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono text-xs font-bold">Cadet Recruit</span>
         <div class="flex items-center space-x-2">
           <span class="text-gray-400 text-xs uppercase tracking-wider font-semibold">XP:</span>
           <span id="xp-text" class="text-xs font-mono font-bold text-amber-400">0 XP</span>
-          <div class="w-28 bg-gray-800 h-2.5 rounded-full overflow-hidden border border-gray-700 ml-1">
+          <div class="w-24 sm:w-32 bg-gray-800 h-2.5 rounded-full overflow-hidden border border-gray-700 ml-1">
             <div id="progress-bar" class="bg-gradient-to-r from-cyan-500 via-emerald-400 to-amber-400 h-full w-0 transition-all duration-300"></div>
           </div>
           <span id="progress-text" class="text-xs font-mono font-bold text-cyan-400">0/110</span>
         </div>
       </div>
 
+      <!-- Sound Toggle -->
       <button id="sound-btn" onclick="toggleSound()" class="px-2.5 py-1.5 rounded-md bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-gray-300 transition text-xs flex items-center gap-1.5">
         <i id="sound-icon" class="fa-solid fa-volume-high text-emerald-400"></i>
-        <span id="sound-label">Audio ON</span>
+        <span id="sound-label" class="hidden sm:inline">Audio ON</span>
       </button>
 
+      <!-- Help Modal Button -->
       <button onclick="toggleHelpModal()" class="px-2.5 py-1.5 rounded-md bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-700/50 text-cyan-300 transition text-xs font-semibold flex items-center gap-1.5">
         <i class="fa-solid fa-circle-question"></i>
-        <span>Help (?)</span>
+        <span class="hidden sm:inline">Help (?)</span>
       </button>
     </div>
   </header>
@@ -114,8 +146,8 @@
   <!-- MAIN APP CONTAINER -->
   <div class="flex-1 flex overflow-hidden">
 
-    <!-- SIDEBAR: MODULE LIST -->
-    <aside class="w-80 border-r border-[#30363d] bg-[#161b22]/70 flex flex-col shrink-0">
+    <!-- SIDEBAR: MODULE MATRIX -->
+    <aside class="w-72 sm:w-80 border-r border-[#30363d] bg-[#161b22]/70 flex flex-col shrink-0">
       <div class="p-3 border-b border-[#30363d] bg-[#161b22] flex justify-between items-center">
         <span class="text-xs font-bold uppercase tracking-wider text-gray-400 flex items-center gap-2">
           <i class="fa-solid fa-layer-group text-cyan-400"></i> Mission Modules
@@ -126,11 +158,11 @@
       </div>
 
       <div id="level-list" class="flex-1 overflow-y-auto p-2 space-y-1.5">
-        <!-- Rendered dynamically -->
+        <!-- Dynamic Level Cards -->
       </div>
 
       <div class="p-3 border-t border-[#30363d] bg-[#161b22] text-xs text-gray-400 flex justify-between items-center font-mono">
-        <span>Flag Format: <strong class="text-amber-400">4-Digit Code</strong></span>
+        <span>Flag: <strong class="text-amber-400">4-Digit Code</strong></span>
         <button onclick="resetProgress()" class="text-red-400 hover:text-red-300 text-[11px] underline">Reset All</button>
       </div>
     </aside>
@@ -144,7 +176,7 @@
           <div>
             <div class="flex items-center gap-2">
               <span id="brief-level-num" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyan-900/60 text-cyan-300 border border-cyan-700/50">Level 1 / 110</span>
-              <h2 id="brief-title" class="text-base font-bold text-white">Loading Title...</h2>
+              <h2 id="brief-title" class="text-base font-bold text-white">Loading...</h2>
             </div>
             <p id="brief-concept" class="text-xs text-cyan-400 font-mono mt-0.5">Concept: Loading...</p>
           </div>
@@ -152,7 +184,7 @@
           <!-- FLAG SUBMISSION -->
           <div class="bg-[#161b22] border border-[#30363d] p-2 rounded-lg flex items-center gap-2 shadow-sm">
             <i class="fa-solid fa-flag text-amber-400 text-sm"></i>
-            <input type="text" id="flag-input" maxlength="4" placeholder="4-Digit Flag" class="w-24 bg-[#0d1117] border border-gray-700 rounded px-2 py-1 text-center font-mono text-sm text-amber-300 focus:outline-none focus:border-cyan-500 uppercase tracking-widest" onkeydown="if(event.key==='Enter') submitFlag()">
+            <input type="text" id="flag-input" maxlength="4" placeholder="4-Digit Code" class="w-24 bg-[#0d1117] border border-gray-700 rounded px-2 py-1 text-center font-mono text-sm text-amber-300 focus:outline-none focus:border-cyan-500 uppercase tracking-widest" onkeydown="if(event.key==='Enter') submitFlag()">
             <button onclick="submitFlag()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded transition flex items-center gap-1">
               <span>Verify</span>
               <i class="fa-solid fa-check"></i>
@@ -166,9 +198,7 @@
             <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
               <i class="fa-solid fa-book-open"></i> Concept & Logic
             </h3>
-            <p id="brief-lesson" class="text-xs text-gray-300 leading-relaxed">
-              Loading lesson details...
-            </p>
+            <p id="brief-lesson" class="text-xs text-gray-300 leading-relaxed">Loading details...</p>
           </div>
 
           <div class="bg-[#0d1117] border border-[#30363d] p-3 rounded-lg flex flex-col justify-between">
@@ -176,9 +206,7 @@
               <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
                 <i class="fa-solid fa-code"></i> Syntax & Usage Examples
               </h3>
-              <div id="brief-syntax" class="text-xs font-mono bg-[#161b22] p-2 rounded border border-gray-800 text-emerald-300 overflow-x-auto whitespace-pre-wrap">
-                $ command [options]
-              </div>
+              <div id="brief-syntax" class="text-xs font-mono bg-[#161b22] p-2 rounded border border-gray-800 text-emerald-300 overflow-x-auto whitespace-pre-wrap">$ command [options]</div>
             </div>
             <div class="mt-2 pt-2 border-t border-gray-800 flex items-center justify-between text-xs text-gray-400">
               <span class="font-semibold text-gray-300">Goal Task:</span>
@@ -217,7 +245,7 @@
           </div>
         </div>
 
-        <div id="terminal-screen" class="flex-1 p-4 overflow-y-auto font-mono text-sm leading-relaxed text-gray-200 space-y-1 select-text" onclick="focusPrompt()"></div>
+        <div id="terminal-screen" class="flex-1 p-4 overflow-y-auto font-mono text-sm leading-relaxed text-gray-200 space-y-1 select-text transition-all duration-300" onclick="focusPrompt()"></div>
 
         <div class="bg-[#0d1117] border-t border-[#30363d] p-3 flex items-center space-x-2 font-mono text-sm">
           <span id="prompt-label" class="text-emerald-400 font-bold whitespace-nowrap">cadet@citadel:~$</span>
@@ -242,13 +270,13 @@
       <div class="p-4 overflow-y-auto space-y-3 text-xs font-mono text-gray-300">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">cat [file]</span> - Read & display file contents</div>
-          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">pwd / ls [-a]</span> - Navigation & hidden file listing</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">pwd / ls [-a]</span> - Navigation & hidden dotfile listing</div>
           <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">cd [dir]</span> - Navigate directory hierarchy</div>
-          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">head / tail / wc</span> - Line reading & character counts</div>
-          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">grep [-i/-v/-n]</span> - Search text patterns</div>
-          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">tr / sort / uniq</span> - Stream transforming & deduplication</div>
-          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">find [path] -name</span> - Recursive filesystem discovery</div>
-          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">base64 -d / md5sum</span> - Decoding payloads & integrity verification</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">head / tail / wc</span> - Line reading & word counts</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">grep [-i/-v/-n]</span> - Search text pattern lines</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">tr / sort / uniq</span> - Stream transform & deduplication</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">find [path] -name</span> - File search engine</div>
+          <div class="bg-[#0d1117] p-2.5 rounded border border-gray-800"><span class="text-emerald-400 font-bold">base64 -d / md5sum</span> - Payload decoding & MD5 hashes</div>
         </div>
       </div>
       <div class="p-3 border-t border-[#30363d] bg-[#161b22] text-right">
@@ -257,8 +285,9 @@
     </div>
   </div>
 
+  <!-- GAME LOGIC ENGINE -->
   <script>
-    // AUDIO SYNTHESIS ENGINE
+    // SOUND SYNTHESIS ENGINE
     let audioCtx = null;
     let soundEnabled = true;
 
@@ -294,7 +323,7 @@
       document.getElementById('sound-icon').className = soundEnabled ? 'fa-solid fa-volume-high text-emerald-400' : 'fa-solid fa-volume-xmark text-gray-500';
     }
 
-    // SAFE LOCALSTORAGE WRAPPER
+    // LOCAL PROGRESS MANAGEMENT
     function getSavedProgress() {
       try {
         const data = localStorage.getItem('cli_quest_completed_110');
@@ -303,7 +332,8 @@
         return new Set();
       }
     }
-    function saveProgress(setObj) {
+
+    function saveProgressLocally(setObj) {
       try {
         localStorage.setItem('cli_quest_completed_110', JSON.stringify([...setObj]));
       } catch (e) {}
@@ -311,9 +341,9 @@
 
     // BASE TOPICS DATA GENERATOR
     const BASE_TOPICS = [
-      { cmd: "cat", concept: "Reading Files: cat & ls", syntax: "cat <filename>   # Read file contents\nls               # List files in directory\npwd              # Print working directory path", file: "welcome.txt", task: "Use 'ls' to list the directory files, then use 'cat <filename>' to read the target file and uncover the 4-digit passcode." },
-      { cmd: "ls -a", concept: "Hidden Files: ls -a & cat", syntax: "ls -a            # List ALL files including hidden dotfiles\ncat .<filename>  # Read hidden file content", file: ".hidden_pass", task: "Use 'ls -a' to discover hidden dotfiles in the directory, then use 'cat' to read the hidden passcode file." },
-      { cmd: "cd", concept: "Directory Traversal & cat", syntax: "cd <folder_name> # Navigate into directory\nls               # List directory contents\ncat <filename>   # Read target file inside folder", file: "security_sector/passcode.txt", task: "Navigate into the security folder using 'cd', inspect its contents with 'ls', and read the file inside with 'cat'." },
+      { cmd: "cat", concept: "Reading Files: cat & ls", syntax: "cat <filename>   # Read & display file contents\nls               # List visible files\npwd              # Print working directory path", file: "welcome.txt", task: "Use 'ls' to list files in your current directory, then use 'cat <filename>' to read the target file and uncover the 4-digit passcode." },
+      { cmd: "ls -a", concept: "Hidden Files: ls -a & cat", syntax: "ls -a            # List ALL files including hidden dotfiles\ncat .<filename>  # Read hidden file contents using cat", file: ".hidden_pass", task: "Run 'ls -a' to locate hidden dotfiles in the directory, then use 'cat' to read the hidden passcode file." },
+      { cmd: "cd", concept: "Directory Traversal: cd & cat", syntax: "cd <folder_name> # Navigate into directory\nls               # List folder contents\ncat <filename>   # Read passcode file using cat", file: "security_sector/passcode.txt", task: "Use 'ls' to view the directory, navigate into the security folder using 'cd', and read the file inside with 'cat' to extract the passcode." },
       { cmd: "cat", concept: "Quoted Filenames with Spaces", syntax: "cat \"file name with spaces.txt\"\ncat file\\ name\\ with\\ spaces.txt", file: "classified code.txt", task: "Inspect the directory to locate the file containing spaces in its name, then use 'cat' with quotes to read its passcode." },
       { cmd: "grep", concept: "Text Filtering: grep", syntax: "grep \"FLAG\" logfile.txt   # Search lines containing FLAG", file: "server_logs.txt", task: "Filter the log file using 'grep' to search for key terms and isolate the 4-digit passcode." },
       { cmd: "file", concept: "File Inspection: file", syntax: "file target_file          # Examine internal file magic bytes", file: "transmission.dat", task: "Examine the files in your directory using 'file <filename>' to identify which item is the text document hiding the passcode." },
@@ -416,7 +446,6 @@
         const tObj = BASE_TOPICS[(i - 1) % BASE_TOPICS.length];
         const phase = Math.ceil(i / 10);
         
-        // Custom explicit level 1, 2, 3 content to ensure 'cat' is taught first
         let titleStr = `[L${i}] ${tObj.concept} (Phase ${phase})`;
         let conceptStr = `Command: ${tObj.cmd}`;
         let lessonStr = `Module ${i} of 110. Master '${tObj.cmd}' to inspect directory structures and read file contents to find passcode.`;
@@ -499,7 +528,6 @@
     let cmdHistory = [];
     let historyIndex = -1;
 
-    // INITIALIZATION FUNCTION
     function initApp() {
       renderLevelList();
       loadLevel(1);
@@ -510,7 +538,7 @@
     window.onload = initApp;
     document.addEventListener("DOMContentLoaded", initApp);
 
-    // SIDEBAR RENDER
+    // SIDEBAR RENDER MATRIX
     function renderLevelList() {
       const container = document.getElementById('level-list');
       if (!container) return;
@@ -696,10 +724,10 @@
       if (val === currentLevel.flag) {
         playSound('success');
         completedLevels.add(activeLevelId);
-        saveProgress(completedLevels);
+        saveProgressLocally(completedLevels);
 
         termScreen.classList.remove('flash-success', 'flash-error');
-        void termScreen.offsetWidth; // trigger reflow
+        void termScreen.offsetWidth;
         termScreen.classList.add('flash-success');
 
         appendTerminalOutput(`[SUCCESS] Flag ${val} verified! Level ${activeLevelId} cleared!`, 'text-emerald-400 font-bold');
@@ -724,7 +752,7 @@
     function resetProgress() {
       if (confirm("Reset all 110 level progress?")) {
         completedLevels.clear();
-        saveProgress(completedLevels);
+        saveProgressLocally(completedLevels);
         updateProgressUI();
         loadLevel(1);
         playSound('click');
@@ -743,10 +771,10 @@
     function printWelcomeBanner() {
       appendTerminalOutput(`
    ______  __    ____    ____  __  AE  ____ _____
-  / ____/ / /   /  _/   / __ \/ / / / / __ / ___/  110 LESSONS
- / /     / /    / /    / / / / / / / / /_/  \__ \   FULL EXPANSION
+  / ____/ / /   /  _/   / __ \\/ / / / / __ / ___/  110 LESSONS
+ / /     / /    / /    / / / / / / / / /_/  \\__ \\   AUTHENTICATED & SYNCED
 / /___  / /____/ /    / /_/ / /_/ / / ____/___/ /  
-\____/ /_____/___/    \____/\____/ /_/   /____/  
+\\____/ /_____/___/    \\____/\\____/ /_/   /____/  
 
 Type 'help' or click Help (?) for command reference.
       `, 'text-cyan-400 font-bold');
@@ -756,7 +784,7 @@ Type 'help' or click Help (?) for command reference.
     function focusPrompt() { document.getElementById('cmd-input').focus(); }
     function updatePrompt() { document.getElementById('prompt-label').innerText = `cadet@citadel:${currentPath}$`; }
 
-    // TERMINAL COMMAND INTERPRETER
+    // TERMINAL COMMAND INTERPRETER ENGINE
     function getDirectoryNode(targetPath = currentPath) {
       const level = LEVELS.find(l => l.id === activeLevelId);
       if (!level || !level.filesystem) return null;
